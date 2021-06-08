@@ -20,13 +20,19 @@ decimal.onclick = () => {
 
 for (let i = 0; i < operator.length; i++) {
   operator[i].addEventListener("click", function () {
-    expression.push(parseFloat(output.value));
+    expression.push(output.value);
     output.value = "";
     expression.push(this.value);
   });
 }
 
 equalSign.addEventListener("click", function () {
+  for (let j = 0; j <= expression.length; j++) {
+    if (expression[j] === "") {
+      expression.splice(j - 1, 2);
+      j = j - 2;
+    }
+  }
   console.log(expression);
   while (expression.length > 2) {
     for (let j = 0; j <= expression.length; j++) {
@@ -61,7 +67,8 @@ equalSign.addEventListener("click", function () {
 
     for (let j = 0; j <= expression.length; j++) {
       if (expression[j] === "+") {
-        var temp = expression[j - 1] + expression[j + 1];
+        var temp =
+          parseFloat(expression[j - 1]) + parseFloat(expression[j + 1]);
         expression.splice(j - 1, 3, temp);
         output.value = expression[0];
         console.log(expression);
