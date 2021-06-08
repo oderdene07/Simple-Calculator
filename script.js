@@ -35,7 +35,7 @@ function clearArrays() {
 equalSign.addEventListener("click", function () {
   console.log(operators);
   console.log(numbers);
-  for (let i = 0, j = 0; i < numbers.length, j < operators.length; i++, j++) {
+  for (let j = 0; j < operators.length; j++) {
     if (operators[j] === "×") {
       output.value = numbers[0] * numbers[1];
     }
