@@ -4,8 +4,7 @@ const operator = document.querySelectorAll(".operator");
 const equalSign = document.querySelector(".equal");
 const clearSign = document.querySelector(".all-clear");
 const decimal = document.querySelector(".decimal");
-var numbers = [];
-var operators = [];
+var expression = [];
 
 for (var i = 0; i < number.length; i++) {
   number[i].addEventListener("click", function () {
@@ -21,44 +20,59 @@ decimal.onclick = () => {
 
 for (let i = 0; i < operator.length; i++) {
   operator[i].addEventListener("click", function () {
-    numbers.push(parseFloat(output.value));
+    expression.push(parseFloat(output.value));
     output.value = "";
-    operators.push(this.value);
+    expression.push(this.value);
   });
 }
 
-function clearArrays() {
-  numbers = [];
-  operators = [];
-}
-
 equalSign.addEventListener("click", function () {
-  console.log(operators);
-  console.log(numbers);
-  for (let j = 0; j < operators.length; j++) {
-    if (operators[j] === "×") {
-      output.value = numbers[0] * numbers[1];
+  console.log(expression);
+  while (expression.length > 2) {
+    for (let j = 0; j <= expression.length; j++) {
+      if (expression[j] === "×") {
+        var temp = expression[j - 1] * expression[j + 1];
+        expression.splice(j - 1, 3, temp);
+        output.value = expression[0];
+        console.log(expression);
+        j = j - 2;
+      }
     }
-    if (operators[j] === "÷") {
-      output.value = numbers[0] / numbers[1];
+
+    for (let j = 0; j <= expression.length; j++) {
+      if (expression[j] === "÷") {
+        var temp = expression[j - 1] / expression[j + 1];
+        expression.splice(j - 1, 3, temp);
+        output.value = expression[0];
+        console.log(expression);
+        j = j - 2;
+      }
     }
-    if (operators[j] === "+") {
-      output.value = numbers[0] + numbers[1];
+
+    for (let j = 0; j <= expression.length; j++) {
+      if (expression[j] === "-") {
+        var temp = expression[j - 1] - expression[j + 1];
+        expression.splice(j - 1, 3, temp);
+        output.value = expression[0];
+        console.log(expression);
+        j = j - 2;
+      }
     }
-    if (operators[j] === "-") {
-      output.value = numbers[0] - numbers[1];
+
+    for (let j = 0; j <= expression.length; j++) {
+      if (expression[j] === "+") {
+        var temp = expression[j - 1] + expression[j + 1];
+        expression.splice(j - 1, 3, temp);
+        output.value = expression[0];
+        console.log(expression);
+        j = j - 2;
+      }
     }
-    console.log(operators);
-    console.log(numbers);
-    numbers.push(parseFloat(output.value));
-    numbers.shift();
-    numbers.shift();
-    numbers.reverse();
   }
-  clearArrays();
+  expression = [];
 });
 
 clearSign.onclick = () => {
   output.value = "0";
-  clearArrays();
+  expression = [];
 };
